@@ -7,6 +7,9 @@ def index(request):
 def products(request):
     return render(request,'products.html')
 
+def products(request):
+    return render(request,'product_details.html')
+
 def account(request):
     return render(request,'account.html')
 

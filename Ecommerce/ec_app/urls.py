@@ -21,6 +21,7 @@ from .import views
 urlpatterns = [
     path('',views.index,name='index'),
     path('products/',views.products,name='products'),
+    path('products_details/',views.products,name='product_details'),
     path('account/',views.account,name='account'),
     path('cart/',views.cart,name='cart')
    
