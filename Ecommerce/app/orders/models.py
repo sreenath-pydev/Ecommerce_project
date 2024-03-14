@@ -1,6 +1,6 @@
 from django.db import models
-from customer.models import customers
-from product.models import products
+from app.customer.models import customers
+from app.product.models import products
 
 # Create your models here.
 class order(models.Model):
