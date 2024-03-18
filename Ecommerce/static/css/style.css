@@ -39,26 +39,29 @@ p{
     margin: auto;
     padding-left: 25px;
     padding-right: 25px;
+    padding-bottom: 30px;
+   
 }
 .row{
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-around;
+   
 }
 .col-2{
     flex-basis: 50%;
     min-width: 300px;
+    
 }
 .col-2 img{
     max-width: 100%;
     padding: 10px 0;
 }
 .col-2 h1{
-    font-size: 80px;
+    font-size: 60px;
     line-height: 60px;
     margin: 25px 0;
-    color: ;
 }
 .btn{
     display: inline-block;
@@ -73,12 +76,10 @@ p{
     background: #563434;
 }
 .header{
-    background: radial-gradient(#fff,);
+    background: radial-gradient(#fff,rgb(167, 225, 167));
 }
 
-.header .row{
-    margin-top: 70px;
-}
+
 .categories{
     margin: 70px 0;
 }
@@ -327,11 +328,20 @@ input:focus{
 .small-img-row{
     display: flex;
     justify-content: space-between;
+    
 }
 .small-img-col{
     flex-basis: 24%;
     cursor: pointer;
+    
+    
 }
+.small-img-row .img{
+    height: 114px;
+    
+    
+}
+
 
 /* Cart Items */
 .cart-page{
@@ -387,8 +397,20 @@ th:last-child{
 
 /* Account page */
 .account-page{
-    padding: 50px 0;
-    background: radial-gradient(#fff, #ffd6d6);
+    
+    background: radial-gradient(#fff,rgb(167, 225, 167));
+
+    
+}
+.row-with-background{
+    background-image: url("../images/accountbanner.png");
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat; 
+   
+    
+    
+    
 }
 .form-container{
     background: #fff;
