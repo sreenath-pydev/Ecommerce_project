@@ -1,0 +1,173 @@
+{% load static %}
+
+<div class="small-container">
+    <div class="row row-2">
+        <h2>All Products</h2>
+        <select>
+            <option>Default Sort</option>
+            <option>Sort By Price</option>
+            <option>Sort By Popularity</option>
+            <option>Sort By Rating</option>
+            <option>Sort By Sale</option>
+        </select>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <a href="{% url 'product_details' %}"><img src="{% static 'images/wayprotein.png' %}"></a>
+            <h4> Way Protein</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>₹599.00</p>
+        </div>
+        <div class="col-4">
+            <img src="{% static 'images/pineapplepw.jpg' %}">
+            <h4>Pinapple Juice Powder</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>₹199</p>
+        </div>
+        <div class="col-4">
+            <img src="{% static 'images/bananapw.jpg' %}">
+            <h4> Banana Powder</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>₹299</p>
+        </div>
+        <div class="col-4">
+            <img src="{% static 'images/Jackfruitpw.png' %}">
+            <h4>Jack Fruit Powder</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>₹499.00</p>
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-4">
+        <img src="{% static 'images/BakedRajma .png'%}">
+        <h4>VR Organics Baked Rajma </h4>
+        <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </div>
+        <p>₹50.00</p>
+    </div>
+    <div class="col-4">
+        <img src="{% static 'images/rootsGarlicToasties.png'%}">
+        <h4>organic roots Garlic Toasties</h4>
+        <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </div>
+        <p>₹450.00</p>
+    </div>
+    <div class="col-4">
+        <img src="{% static 'images/rootsRootsPitaChips.png'%}">
+        <h4>organic roots Pita Chips</h4>
+        <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </div>
+        <p>₹398.00</p>
+    </div>
+    <div class="col-4">
+        <img src="{% static 'images/Chikpeachips.png'%}">
+        <h4>VR Organics Chikpea chips</h4>
+        <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </div>
+        <p>₹208.00</p>
+    </div>
+    </div>
+
+<div class="row">
+    <div class="col-4">
+        <img src="{% static 'images/jackchips.png' %}">
+        <h4>Jack Fruit Chips</h4>
+        <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </div>
+        <p>₹350.00</p>
+    </div>
+    <div class="col-4">
+        <img src="{% static  'images/bananachips.png'%}">
+        <h4>Banana Chips</h4>
+        <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </div>
+        <p>₹250.00</p>
+    </div>
+    <div class="col-4">
+        <img src="{% static 'images/coconutslice.png'%}">
+        <h4>Coconut Slice</h4>
+        <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </div>
+        <p>₹50.00</p>
+    </div>
+    <div class="col-4">
+        <img src="{% static 'images/tapiocachips.png'%}">
+        <h4>Tapioca Chips</h4>
+        <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </div>
+        <p>₹190.00</p>
+    </div>
+</div>
+
+    <div class="page-btn">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>&#8594;</span>
+    </div>
+</div>
