@@ -1,6 +1,6 @@
 from django.db import models
 from app.customer.models import customers
-from app.product.models import products
+from app.product.models import products_table
 
 # Create your models here.
 class order(models.Model):
@@ -23,5 +23,5 @@ class order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class order_items(models.Model):
-    product = models.ForeignKey(products,related_name='added_cart',on_delete=models.SET_NULL,null=True)
+    product = models.ForeignKey(products_table,related_name='added_cart',on_delete=models.SET_NULL,null=True)
     quantity = models.IntegerField(default=1)
