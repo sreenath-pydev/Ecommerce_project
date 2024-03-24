@@ -8,12 +8,12 @@
    
        {% for row_products in list_products|row_split:4 %}
     <div class="row">
-        {% for prod in row_products %}
+        {% for product in row_products %}
         <div class="col-4">
-            <img src="{{prod.image.url}}">
-            <h4>{{prod.title}} </h4>
+           <a href="{% url 'product_details' product.id %}"><img src="{{product.image.url}}"></a>
+            <h4>{{product.title}} </h4>
             
-            <p>₹{{prod.price}}</p>
+            <p>₹{{product.price}}</p>
         </div>
       {% endfor %}
     </div>

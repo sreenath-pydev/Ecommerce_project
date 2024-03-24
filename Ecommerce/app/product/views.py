@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import products_table
 from django.core.paginator import Paginator
 # Create your views here.
+# product_list
 def product_list(request):
     page=1
     if request.GET:
@@ -11,6 +12,8 @@ def product_list(request):
     list_products = list_product_paginator.get_page(page) 
     context = {'list_products':list_products}    
     return render(request,'products.html',context)
-
-def product_details(request):
-    return render(request,'product_details.html')
+# product_details
+def product_details(request,pk):
+    product= products_table.objects.get(pk=pk)
+    context={'product':product}
+    return render(request,'product_details.html',context)

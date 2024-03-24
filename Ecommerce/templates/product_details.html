@@ -6,22 +6,9 @@
     <div class="small-container single-product">
         <div class="row">
             <div class="col-2">
-                <img src="{% static 'images/wayprotein1.png' %}" width="100%" id="ProductImg">
+                <img src="{{product.image.url}}" width="100%" id="ProductImg">
 
-                <div class="small-img-row">
-                    <div class="small-img-col">
-                        <img src="{% static 'images/wayprotein1.png' %}" width="100%" class="small-img">
-                    </div>
-                    <div class="small-img-col">
-                        <img src="{% static 'images/wayprotein1.png' %}" width="100%" class="small-img">
-                    </div>
-                    <div class="small-img-col">
-                        <img src="{% static 'images/wayprotein2.png' %}" width="100%" class="small-img">
-                    </div>
-                    <div class="small-img-col">
-                        <img src="{% static 'images/wayprotein3.png' %}" width="100%" class="small-img">
-                    </div>
-                </div>
+               
 
             </div>
             <div class="col-2">
@@ -46,65 +33,9 @@
         </div>
     </div>
     <!-- title -->
-    <div class="small-container">
-        <div class="row row-2">
-            <h2>Related Products</h2>
-            <p>View More</p>
-        </div>
-    </div>
+    
     <!-- Products -->
-    <div class="small-container">
-        <div class="row">
-            <div class="col-4">
-                <a href="{% url 'product_details' %}"><img src="{% static 'images/wayprotein.png' %}"></a>
-                <h4> Way Protein</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>₹599.00</p>
-            </div>
-            <div class="col-4">
-                <img src="{% static 'images/pineapplepw.jpg' %}">
-                <h4>Pinapple Juice Powder</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>₹199</p>
-            </div>
-            <div class="col-4">
-                <img src="{% static 'images/bananapw.jpg' %}">
-                <h4> Banana Powder</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>₹299</p>
-            </div>
-            <div class="col-4">
-                <img src="{% static 'images/Jackfruitpw.png' %}">
-                <h4>Jack Fruit Powder</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>₹499.00</p>
-            </div>
-        </div>
-    </div>
+   
 
    
     <!-- product gallery -->

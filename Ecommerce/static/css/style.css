@@ -295,6 +295,7 @@ select:focus{
 }
 .single-product .col-2 img{
     padding: 0;
+    
 }
 .single-product .col-2{
     padding: 20px;
@@ -341,6 +342,11 @@ input:focus{
     
     
 }
+#ProductImg{
+    
+    height: 475px;
+}
+
 
 
 /* Cart Items */
