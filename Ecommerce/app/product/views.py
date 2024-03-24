@@ -7,7 +7,7 @@ def product_list(request):
     if request.GET:
         page=request.GET.get('page',1)
     list_products = products_table.objects.all()   
-    list_product_paginator = Paginator(list_products,2)
+    list_product_paginator = Paginator(list_products,8)
     list_products = list_product_paginator.get_page(page) 
     context = {'list_products':list_products}    
     return render(request,'products.html',context)
