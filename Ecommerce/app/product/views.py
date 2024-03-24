@@ -2,6 +2,17 @@ from django.shortcuts import render
 from .models import products_table
 from django.core.paginator import Paginator
 # Create your views here.
+
+# home page product listing
+def index(request):
+    featured_products=products_table.objects.order_by('-priority')[:4]
+    latest_products=products_table.objects.order_by('-id')[:4]
+    context={
+        "featured_products":featured_products,
+        "latest_products":latest_products
+    }
+    return render(request,'index.html',context)
+
 # product_list
 def product_list(request):
     page=1
