@@ -15,19 +15,37 @@
                             <span onclick="register()">Register</span>
                             <hr id="Indicator">
                         </div>
-                        <form id="LoginForm">
-                            <input type="text" placeholder="Username">
-                            <input type="password" placeholder="Password">
-                            <button type="submit" class="btn">Login</button>
+                        <!--error massages-->
+                        {% if error_massage %}
+                        <div class="toast " role="alert" aria-live="assertive" aria-atomic="true"  style=" color: red;">
+                          <div class="toast-header">
+                            <strong class="me-auto">Alert!</strong>
+                          </div>
+                          <div class="toast-body">
+                            {{ error_massage }}
+                          </div>
+                        </div>
+                        {% endif %}
+                        <!--login form-->
+                        <form id="LoginForm" method='post' enctype='multipart/form-data'>
+                            {% csrf_token %}
+                            <input type="text" name="username" required placeholder="Username">
+                            <input type="password" name="password" required placeholder="Password">
+                            <button type="submit" name="login" class="btn">Login</button>
                             <a href="">Forget Password</a>
                         </form>
-
-                        <form id="RegForm">
-                            <input type="text" placeholder="Username">
-                            <input type="email" placeholder="Email">
-                            <input type="password" placeholder="Password">
-                            <button type="submit" class="btn">Register</button>
+                       <!--Register form-->
+                        <form id="RegForm" method='post'>
+                            {% csrf_token %}
+                            <input type="text" name="username" required placeholder="Username">
+                            <input type="email" name="email" required placeholder="Email">
+                            <input type="text" name="phone" required placeholder="Phone">
+                            <input type="password" name="password" required placeholder="Password">
+                            <input type="password" name="repeat_password" required placeholder="repeat_Password">
+                            <button type="submit" name="register" class="btn">Register</button>
+                            
                         </form>
+                        
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 
 # home page product listing
 def index(request):
-    featured_products=products_table.objects.order_by('-priority')[:4]
+    featured_products=products_table.objects.order_by('priority')[:4]
     latest_products=products_table.objects.order_by('-id')[:4]
     context={
         "featured_products":featured_products,
