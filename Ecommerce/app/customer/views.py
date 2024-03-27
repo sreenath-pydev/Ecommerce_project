@@ -58,3 +58,7 @@ def account(request):
             
             
     return render(request,'account.html',context)
+
+def sing_out(request):
+    logout(request)
+    return redirect('index')

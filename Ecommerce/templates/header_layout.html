@@ -11,11 +11,17 @@
                     <li><a href="{% url 'product_list' %}">Products</a></li>
                     <li><a href="#footer" class="scroll-link">About</a></li>
                     <li><a href="#footer" class="scroll-link">Contact</a></li>
+                    {% if not user.is_authenticated %}
+                    
                     <li><a href="{% url 'account' %}">Account</a></li>
+                    {% else %}
+                    <li><a href="{% url 'logout' %}">logut</a></li>
+                    
                 </ul>
             </nav>
             <a href="{% url 'cart' %}"><img src="{% static 'images/cart.png' %}" width="30px" height="30px"></a>
             <img src="{% static 'images/menu.png' %}" class="menu-icon" onclick="menutoggle()">
+            {% endif %}
         </div>
     </div>
 </div>
