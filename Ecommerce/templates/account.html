@@ -16,15 +16,19 @@
                             <hr id="Indicator">
                         </div>
                         <!--error massages-->
-                        {% if error_massage %}
+                        {% if messages %}
+                        {% for message in messages %}
                         <div class="toast " role="alert" aria-live="assertive" aria-atomic="true"  style=" color: red;">
-                          <div class="toast-header">
+                            
+                            <div class="toast-header">
                             <strong class="me-auto">Alert!</strong>
                           </div>
                           <div class="toast-body">
-                            {{ error_massage }}
+                            {{ message }}
                           </div>
+                          
                         </div>
+                        {% endfor %}
                         {% endif %}
                         <!--login form-->
                         <form id="LoginForm" method='post' enctype='multipart/form-data'>
@@ -77,4 +81,18 @@
 
         }
     </script>
+    {% if register %}
+     <script>
+        register()
+       
+     </script>
+     {% else  %}
+     <script>
+        login()
+        RegForm.style.transform = "translatex()";
+        LoginForm.style.transform = "translatex()";
+        Indicator.style.transform = "translate(0px)";
+     </script>
+
+    {% endif %}
     
