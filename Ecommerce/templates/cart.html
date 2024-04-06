@@ -1,8 +1,18 @@
 {% include "base_layout.html" %}
+
 {% load static %}
+{% load multiply %}
+{% load subtotal %}
+{% load tax %}
+{% load total_price %}
+
+
 
     <!-- Cart items details -->
+    {% if cart and cart.added_items.all %}
+    
     <div class="small-container cart-page">
+        
         
         <table>
             <tr>
@@ -10,41 +20,69 @@
                 <th>Quantity</th>
                 <th>Subtotal</th>
             </tr>
+            
             {% for cart_item in cart.added_items.all%}
             <tr>
                 <td>
                     <div class="cart-info">
+                        <!--product images in cart-->
                         <img src="{{cart_item.product.image.url}}">
                         <div>
+                            <!--product title in cart-->
                             <p>{{cart_item.product.title}}</p>
+                            <!--product price in cart-->
                             <small>Price: ${{cart_item.product.price}}</small>
                             <br>
-                            <a href="">Remove</a>
+                            <!--remove product from cart-->
+                            <a href="{% url 'remove_items_from_cart' cart_item.id %}">Remove</a>
                         </div>
                     </div>
                 </td>
-                <td><input type="number" value="{{cart_item.quantity}}"></td>
-                <td>$50.00</td>
+                <!--product Quantity added to cart-->
+                <td>  
+                        <input type="number"  value="{{cart_item.quantity}}"  disabled>
+                </td>    
+                <!--product*quantity subtotal price in cart-->
+                <td>₹{% multiply cart_item.product.price cart_item.quantity %}</td>
             </tr>
            {% endfor %}
-        </table>
+
+           
+        </table> 
+        
         <div class="total-price">
+            
             <table>
                 <tr>
+                    <!--subtotal price of all prodects in cart-->
                     <td>Subtotal</td>
-                    <td>$200.00</td>
+                    <td> ₹{% subtotal cart %}</td>
                 </tr>
                 <tr>
-                    <td>Tax</td>
-                    <td>$35.00</td>
+                    <td>Tax 2%</td>
+                    <td>₹{% tax cart %}</td>
                 </tr>
                 <tr>
                     <td>Total</td>
-                    <td>$230.00</td>
+                    <td>₹{% total_price cart %}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                <td><a  href="{% url 'place_order' %}" class="btn">PLACE ORDER</a></td>
+                
+
                 </tr>
             </table>
-        </div>
+        
        
+        </div>
+       {% else %}
+       <h2>cart is empty</h2>
+       {% endif %}
     </div>
 
+     <!-- footer -->
+     {% block footer %}
+     {% include "footer_layout.html" %}
+     {% endblock footer %}
     

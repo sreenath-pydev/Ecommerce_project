@@ -31,9 +31,14 @@ def account(request):
         # create customer account
                 customer=customers.objects.create(
                 user=user,
-                phone=phone
+                phone=phone,
+                name=username,
                 )
-                return redirect('index')
+                
+                if user:
+                    login(request,user)
+                    return redirect('index')  
+                
             
             except:
                 error_massage='Username Alredy Taken' 
@@ -53,10 +58,7 @@ def account(request):
             return redirect('index')  
         else:
             error_massage='Incorrect Username Or password' 
-            messages.error(request,error_massage)
-
-            
-            
+            messages.error(request,error_massage)    
     return render(request,'account.html',context)
 
 def sing_out(request):

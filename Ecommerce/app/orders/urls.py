@@ -20,6 +20,10 @@ from .import views
 
 urlpatterns = [
     path('carts/',views.cart_items,name='cart'),
-    path('add_to_cart/<pk>',views.add_to_cart,name='add_to_cart')
+    path('add_to_cart/<pk>',views.add_to_cart,name='add_to_cart'),
+    path('remove_items_from_cart/<pk>',views.remove_items_from_cart,name='remove_items_from_cart'),
+    path('place_order/',views.place_order,name='place_order'),
+    #path('address/',views.address,name='address'),
+    
    
 ]

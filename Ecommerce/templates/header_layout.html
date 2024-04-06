@@ -7,22 +7,48 @@
             </div>
             <nav>
                 <ul id="MenuItems">
-                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" id="accountLink">Account</a>
+                        <div class="dropdown-content" id="accountDropdown">
+                            {% if user.is_authenticated %}
+                                <a href="">Profile</a>
+                                <a href="{% url 'logout' %}">Logout</a>
+                            {% else %}
+                                <a href="{% url 'account' %}">Login</a>
+                                <a href="{% url 'account' %}">Register</a>
+                            {% endif %}
+                        </div>
+                    </li>
                     <li><a href="{% url 'product_list' %}">Products</a></li>
-                    <li><a href="#footer" class="scroll-link">About</a></li>
                     <li><a href="#footer" class="scroll-link">Contact</a></li>
-                    {% if not user.is_authenticated %}
-                    
-                    <li><a href="{% url 'account' %}">Account</a></li>
-                    {% else %}
-                    <li><a href="{% url 'logout' %}">logut</a></li>
-                    
                 </ul>
             </nav>
+            {% if user.is_authenticated %}
             <a href="{% url 'cart' %}"><img src="{% static 'images/cart.png' %}" width="30px" height="30px"></a>
-            <img src="{% static 'images/menu.png' %}" class="menu-icon" onclick="menutoggle()">
+            {% else %}
+            <a href="{% url 'account' %}"><img src="{% static 'images/cart.png' %}" width="30px" height="30px"></a>
             {% endif %}
         </div>
     </div>
 </div>
 
+<!-- JavaScript to toggle dropdown -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var accountLinks = document.querySelectorAll(".dropdown > a");
+    
+        // Add event listeners to each account link
+        accountLinks.forEach(function(link) {
+            link.addEventListener("click", function(event) {
+                // Prevent default link behavior
+                event.preventDefault();
+    
+                // Toggle the dropdown content visibility
+                var dropdownContent = this.nextElementSibling;
+                dropdownContent.style.display = (dropdownContent.style.display === "block") ? "none" : "block";
+            });
+        });
+    });
+    
+</script>
