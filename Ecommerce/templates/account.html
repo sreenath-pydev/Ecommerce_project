@@ -1,98 +1,84 @@
 {% include "base_layout.html" %}
 {% load static %}
 
-    <!-- Account Page -->
-    <div class="account-page">
-        <div class="container ">
-            <div class="row row-with-background">
-                <div class="col-2 ">
-                    <img src="" width="100%">
-                </div>
-                <div class="col-2">
-                    <div class="form-container">
-                        <div class="form-btn">
-                            <span onclick="login()">Login</span>
-                            <span onclick="register()">Register</span>
-                            <hr id="Indicator">
-                        </div>
-                        <!--error massages-->
-                        {% if messages %}
-                        {% for message in messages %}
-                        <div class="toast " role="alert" aria-live="assertive" aria-atomic="true"  style=" color: red;">
-                            
-                            <div class="toast-header">
-                            <strong class="me-auto">Alert!</strong>
-                          </div>
-                          <div class="toast-body">
-                            {{ message }}
-                          </div>
-                          
-                        </div>
-                        {% endfor %}
-                        {% endif %}
-                        <!--login form-->
-                        <form id="LoginForm" method='post' enctype='multipart/form-data'>
-                            {% csrf_token %}
-                            <input type="text" name="username" required placeholder="Username">
-                            <input type="password" name="password" required placeholder="Password">
-                            <button type="submit" name="login" class="btn">Login</button>
-                            <a href="">Forget Password</a>
-                        </form>
-                       <!--Register form-->
-                        <form id="RegForm" method='post'>
-                            {% csrf_token %}
-                            <input type="text" name="username" required placeholder="Username">
-                            <input type="email" name="email" required placeholder="Email">
-                            <input type="text" name="phone" required placeholder="Phone">
-                            <input type="password" name="password" required placeholder="Password">
-                            <input type="password" name="repeat_password" required placeholder="repeat_Password">
-                            <button type="submit" name="register" class="btn">Register</button>
-                            
-                        </form>
-                        
+<!-- Account Page -->
+<div class="account-page">
+    <div class="container">
+        <div class="row row-with-background">
+            <div class="col-2">
+                <img src="" width="100%">
+            </div>
+            <div class="col-2">
+                <div class="form-container">
+                    <div class="form-btn">
+                        <span onclick="login()">Login</span>
+                        <span onclick="register()">Register</span>
+                        <hr id="Indicator">
                     </div>
+                    <!-- Error messages -->
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="color: red;">
+                        <div class="toast-header">
+                            <strong class="me-auto">Alert!</strong>
+                        </div>
+                        <div class="toast-body">
+                            {{ message }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <!-- Login form -->
+                    <form id="LoginForm" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="text" name="username" required placeholder="Username">
+                        <input type="password" name="password" required placeholder="Password">
+                        <button type="submit" name="login" class="btn">Login</button>
+                        <a href="">Forget Password</a>
+                    </form>
+                    <!-- Register form -->
+                    <form id="RegForm" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="username" required placeholder="Username">
+                        <input type="email" name="email" required placeholder="Email">
+                        <input type="text" name="phone" required placeholder="Phone">
+                        <input type="password" name="password" required placeholder="Password">
+                        <input type="password" name="repeat_password" required placeholder="repeat_Password">
+                        <button type="submit" name="register" class="btn">Register</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-     <!--footer layout-->   
-   {% block footer %}
-   {% include "footer_layout.html" %}
-   {% endblock footer %}
-    
-    
+<!-- Footer layout -->
+{% block footer %}
+{% include "footer_layout.html" %}
+{% endblock footer %}
 
-    <!-- Toggle Form -->
-    <script>
-        var LoginForm = document.getElementById("LoginForm");
-        var RegForm = document.getElementById("RegForm");
-        var Indicator = document.getElementById("Indicator");
-        function register() {
-            RegForm.style.transform = "translatex(0px)";
-            LoginForm.style.transform = "translatex(0px)";
-            Indicator.style.transform = "translateX(100px)";
+<!-- Toggle Form -->
+<script>
+    var LoginForm = document.getElementById("LoginForm");
+    var RegForm = document.getElementById("RegForm");
+    var Indicator = document.getElementById("Indicator");
 
-        }
-        function login() {
-            RegForm.style.transform = "translatex(300px)";
-            LoginForm.style.transform = "translatex(300px)";
-            Indicator.style.transform = "translate(0px)";
+    function register() {
+        RegForm.style.transform = "translatex(0px)";
+        LoginForm.style.transform = "translatex(0px)";
+        Indicator.style.transform = "translateX(100px)";
+    }
 
-        }
-    </script>
-    {% if register %}
-     <script>
-        register()
-       
-     </script>
-     {% else  %}
-     <script>
-        login()
-        RegForm.style.transform = "translatex()";
-        LoginForm.style.transform = "translatex()";
+    function login() {
+        RegForm.style.transform = "translatex(300px)";
+        LoginForm.style.transform = "translatex(300px)";
         Indicator.style.transform = "translate(0px)";
-     </script>
+    }
+</script>
 
-    {% endif %}
-    
+<!-- Call register() or login() based on query parameters -->
+{% if request.GET.register %}
+<script>register()</script>
+{% elif request.GET.login %}
+<script>login()</script>
+{% endif %}
