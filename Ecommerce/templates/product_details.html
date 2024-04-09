@@ -2,55 +2,36 @@
 {% load static %}
 
 
-    <!-- Single Products -->
-    <div class="small-container single-product">
-        <div class="row">
-            <div class="col-2">
-                <img src="{{product.image.url}}" width="100%" id="ProductImg">
-            </div>
-            <div class="col-2">
-                <p>Home /{{product.title}}</p>
-                <h1>{{product.title}}</h1>
-                <h4>₹{{product.price}}</h4>
+   <!-- Single Products -->
+<div class="small-container single-product">
+    <div class="row">
+        <div class="col-2">
+            <img src="{{ product.image.url }}" width="100%" id="ProductImg">
+        </div>
+        <div class="col-2">
+            <p>Home / {{ product.title }}</p>
+            <h1>{{ product.title }}</h1>
+            <h4>₹{{ product.price }}</h4>
 
-                <form method='post' action="{% url 'add_to_cart' product.id %}" enctype='multipart/form-data'>
-                    {% csrf_token %}
-                <input type='hidden' name='product_id' value={{product.id}}/>
-                <input type="number" name ='quantity' value="1">
-                <button  type='submit' class="btn">Add To Cart</button>
+            <form id="addToCartForm" method="post" enctype="multipart/form-data" {% if user.is_authenticated %} action="{% url 'add_to_cart' product.id %}" {% else %} action="{% url 'account' %}?login=true" {% endif %} >
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product.id }}">
                 
-                </form>
-                <h3>Product Details <i class="fa fa-indent"></i></h3>
-                <br>
-                <p>{{product.descriptions}}</p>
-            </div>
+                <button type="submit" class="btn">Add To Cart</button>
+            </form>
+            
+            <h3>Product Details <i class="fa fa-indent"></i></h3>
+            <br>
+            <p>{{ product.descriptions }}</p>
         </div>
     </div>
-    <!-- title -->
-    
-    <!-- footer -->
-    {% block footer %}
-    {% include "footer_layout.html" %}
-    {% endblock footer %}
+</div>
+<!-- title -->
 
-   
-    <!-- product gallery -->
-    <script>
-        var ProductImg = document.getElementById("ProductImg");
-        var SmallImg = document.getElementsByClassName("small-img");
+<!-- footer -->
+{% block footer %}
+{% include "footer_layout.html" %}
+{% endblock footer %}
 
-        SmallImg[0].onclick = function () {
-            ProductImg.src = SmallImg[0].src;
-        }
-        SmallImg[1].onclick = function () {
-            ProductImg.src = SmallImg[1].src;
-        }
-        SmallImg[2].onclick = function () {
-            ProductImg.src = SmallImg[2].src;
-        }
-        SmallImg[3].onclick = function () {
-            ProductImg.src = SmallImg[3].src;
-        }
+<!-- JavaScript to handle quantity -->
 
-    </script>
-    

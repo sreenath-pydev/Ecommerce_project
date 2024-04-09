@@ -6,83 +6,164 @@
 {% load tax %}
 {% load total_price %}
 
-
-
-    <!-- Cart items details -->
-    {% if cart and cart.added_items.all %}
+<!-- Cart items details -->
+{% if cart and cart.added_items.all %}
+<div class="small-container cart-page">
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+        </tr>
+        {% for cart_item in cart.added_items.all %}
+        <tr>
+            <td>
+                <div class="cart-info">
+                    
+                    <a href="{% url 'product_details' cart_item.product.id %}"><img src="{{ cart_item.product.image.url }}"></a>
+                    <div>
+                        <p>{{ cart_item.product.title }}</p>
+                        <small>Price: ₹{{ cart_item.product.price }}</small>
+                        <br>
+                        <a href="{% url 'remove_items_from_cart' cart_item.id %}">Remove</a>
+                    </div>
+                </div>
+            </td>
+            <!--quantity buttons-->
+            <td>
+                <form method="post" action="{% url 'update_product_quantity_in_cart' %}">
+                    {% csrf_token %}
+                    <div class="quantity-control">
+                        <button class="decrement-btn" data-item-id="{{ cart_item.id }}">–</button>
+                        <input type="text" class="quantity-input" name="quantity" value="{{ cart_item.quantity }}" data-item-id="{{ cart_item.id }}" data-item-price="{{ cart_item.product.price }}">
+                        <input id="count-bar"type="hidden" name="product_id" value="{{ cart_item.product.id }}">
+                        <button class="increment-btn" data-item-id="{{ cart_item.id }}">+</button>
+                    </div>
+                </form>
+            </td>
+            
+            <td>₹{% multiply cart_item.product.price cart_item.quantity %}</td>
+        </tr>
+        {% endfor %}
+    </table> 
     
-    <div class="small-container cart-page">
-        
-        
+    <div class="total-price"> 
         <table>
             <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
+                <td>Subtotal</td>
+                <td class="subtotal-price">₹{% subtotal cart %}</td>
             </tr>
-            
-            {% for cart_item in cart.added_items.all%}
             <tr>
-                <td>
-                    <div class="cart-info">
-                        <!--product images in cart-->
-                        <img src="{{cart_item.product.image.url}}">
-                        <div>
-                            <!--product title in cart-->
-                            <p>{{cart_item.product.title}}</p>
-                            <!--product price in cart-->
-                            <small>Price: ${{cart_item.product.price}}</small>
-                            <br>
-                            <!--remove product from cart-->
-                            <a href="{% url 'remove_items_from_cart' cart_item.id %}">Remove</a>
-                        </div>
-                    </div>
-                </td>
-                <!--product Quantity added to cart-->
-                <td>  
-                        <input type="number"  value="{{cart_item.quantity}}"  disabled>
-                </td>    
-                <!--product*quantity subtotal price in cart-->
-                <td>₹{% multiply cart_item.product.price cart_item.quantity %}</td>
+                <td>Tax (2%)</td>
+                <td class="tax-price">₹{% tax cart %}</td>
             </tr>
-           {% endfor %}
-
-           
-        </table> 
-        
-        <div class="total-price">
-            
-            <table>
-                <tr>
-                    <!--subtotal price of all prodects in cart-->
-                    <td>Subtotal</td>
-                    <td> ₹{% subtotal cart %}</td>
-                </tr>
-                <tr>
-                    <td>Tax 2%</td>
-                    <td>₹{% tax cart %}</td>
-                </tr>
-                <tr>
-                    <td>Total</td>
-                    <td>₹{% total_price cart %}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                <td><a  href="{% url 'place_order' %}" class="btn">PLACE ORDER</a></td>
-                
-
-                </tr>
-            </table>
-        
-       
-        </div>
-       {% else %}
-       <h2>cart is empty</h2>
-       {% endif %}
+            <tr>
+                <td>Total</td>
+                <td class="total-price">₹{% total_price cart %}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <form method="post" action="{% url 'order_status' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="total" value="{% total_price cart %}">
+                        <button type="submit" class="btn">PLACE ORDER</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
     </div>
+</div>
+{% else %}
+<div class="row empty_cart">
+    <div class="col-4 align-self-end"> 
+        <img src="{% static 'images/emptycart.png' %}">
+        <!-- Order status message -->
+        {% if messages %}
+            {% for message in messages %}
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header"></div>
+                <div class="toast-body">
+                    {{ message }} 
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <h4>Your cart is empty!</h4> 
+        {% endif %}
+        <!-- Order status message end -->
+    </div>
+</div>
+{% endif %}
 
-     <!-- footer -->
-     {% block footer %}
-     {% include "footer_layout.html" %}
-     {% endblock footer %}
-    
+{% block footer %}
+    {% include "footer_layout.html" %}
+{% endblock footer %}
+
+<!-- JavaScript for quantity control -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const decrementButtons = document.querySelectorAll(".decrement-btn");
+        const incrementButtons = document.querySelectorAll(".increment-btn");
+        const quantityInputs = document.querySelectorAll(".quantity-input");
+
+        function updateSubtotal(itemId, quantity) {
+            const itemPrice = parseFloat(document.querySelector(`.quantity-input[data-item-id="${itemId}"]`).getAttribute("data-item-price"));
+            const subtotalElement = document.querySelector(`.subtotal[data-item-id="${itemId}"]`);
+            subtotalElement.textContent = `₹${itemPrice * quantity}`;
+        }
+
+        function updatePrices() {
+            let subtotal = 0;
+            quantityInputs.forEach(input => {
+                const itemId = input.getAttribute("data-item-id");
+                const itemPrice = parseFloat(input.getAttribute("data-item-price"));
+                const quantity = parseInt(input.value);
+                subtotal += itemPrice * quantity;
+                updateSubtotal(itemId, quantity);
+            });
+            document.querySelector(".subtotal-price").textContent = `₹${subtotal}`;
+            const tax = subtotal * 0.02;
+            document.querySelector(".tax-price").textContent = `₹${tax.toFixed(2)}`;
+            const total = subtotal + tax;
+            document.querySelector(".total-price").textContent = `₹${total.toFixed(2)}`;
+        }
+
+        decrementButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                const itemId = this.getAttribute("data-item-id");
+                const quantityInput = document.querySelector(`.quantity-input[data-item-id="${itemId}"]`);
+                let currentValue = parseInt(quantityInput.value);
+                if (currentValue > 1) {
+                    currentValue--;
+                    quantityInput.value = currentValue;
+                    updateSubtotal(itemId, currentValue);
+                    updatePrices();
+                }
+            });
+        });
+
+        incrementButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                const itemId = this.getAttribute("data-item-id");
+                const quantityInput = document.querySelector(`.quantity-input[data-item-id="${itemId}"]`);
+                let currentValue = parseInt(quantityInput.value);
+                currentValue++;
+                quantityInput.value = currentValue;
+                updateSubtotal(itemId, currentValue);
+                updatePrices();
+            });
+        });
+
+        quantityInputs.forEach(input => {
+            input.addEventListener("change", function() {
+                const itemId = this.getAttribute("data-item-id");
+                const quantity = parseInt(this.value);
+                updateSubtotal(itemId, quantity);
+                updatePrices();
+            });
+        });
+
+        updatePrices();
+    });
+</script>
