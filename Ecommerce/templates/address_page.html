@@ -1,27 +1,28 @@
 {% include "base_layout.html" %}
 {% load static %}
-<div class=" row text-center max-auto">
+<div class="row text-center max-auto">
     <div class="col-4">
-    userName : {{name}}
-    <h2>Delivery address</h2>
-    {% if address%}
-    {{address}}
-    
-        
-        <a href="#address_form" name="update" class="btn">Add New</a>
-    
-    {% else %}
-   
-    <form method="POST" id="address_form" action="{% url 'update_address' %}">
-        {% csrf_token %}
-        <input type="text" name="address"  placeholder="address">
-        <input type="text" name="city"  placeholder="city">
-        <input type="text" name="locality"  placeholder="locality">
-        <input type="text" name="phone"  placeholder="phone">
-        
-        <button type="submit" name="update" class="btn">update</button>
-    </form>
-
-    {% endif %}
+        <h3> {{ name }}</h3>
+        <h2>Delivery Address</h2>
+        {% if address %}
+            <p>{{ address }} <br>{{ city }} <br>{{ locality }}<br>{{ phone }}<br>{{ pincode }}</p>
+            <form method="POST" action="{% url 'update_address_form' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn">Update Address</button>
+            </form>
+        {% else %}
+            <form method="POST" action="{% url 'add_address' %}">
+                {% csrf_token %}
+                <input type="text" name="address" placeholder="NAME">
+                <input type="text" name="city" placeholder="CITY">
+                <input type="text" name="locality" placeholder="LOCALITY">
+                <input type="text" name="phone" placeholder="PHONE">
+                <input type="text" name="pincode" placeholder="PINCODE">
+                <button type="submit" class="btn">Add Address</button>
+            </form>
+        {% endif %}
+    </div>
+    <div class="col-4">
+        <!-- This column can be used for other content if needed -->
+    </div>
 </div>
- </div>

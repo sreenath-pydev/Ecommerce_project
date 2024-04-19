@@ -8,7 +8,7 @@ import razorpay
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotAllowed
-
+from app.customer.form import AddressForm
 
 
 
@@ -101,6 +101,38 @@ def remove_items_from_cart(request,pk):
     return redirect('cart')
 
 # customer address page
+
+
+#update address
+
+@login_required
+def add_address(request):
+    customer, created = customers.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        address_form = AddressForm(request.POST, instance=customer)
+        if address_form.is_valid():
+            address_form.save()
+            return redirect('place_order')
+    else:
+        address_form = AddressForm(instance=customer)
+        
+    return render(request, 'address_page.html', {'address_form': address_form})
+
+
+@login_required
+def update_address_form(request):
+    customer = get_object_or_404(customers, user=request.user)
+
+    if request.method == 'POST':
+        address_form = AddressForm(request.POST, instance=customer)
+        if address_form.is_valid():
+            address_form.save()
+            return redirect('place_order')
+    else:
+        address_form = AddressForm(instance=customer)
+    
+    return render(request, 'address_page.html', {'address_form': address_form})
+
 def place_order(request):
     user = request.user
     customer = user.customer_detail
@@ -108,39 +140,15 @@ def place_order(request):
         'name': user.username,
         'address': customer.address,
         'phone': customer.phone,
-        'email': user.email
+        'email': user.email,
+        'city': customer.city,
+        'locality': customer.locality,
+        'pincode':customer.pincode,
     }
+
     return render(request, 'address_page.html', context)
 
-#update address
-
-def update_address(request):
-    if request.method == 'POST':
-        user = request.user
-        address = request.POST.get('address', '')
-        city = request.POST.get('city', '')
-        locality = request.POST.get('locality', '')
-        phone = request.POST.get('phone', '')
-        
-        # Concatenate all details into a single string
-        full_address = f"{address}, {city}, {locality}, {phone}"
-        
-        # Check if a customer record already exists for the user
-        customer = get_object_or_404(customers, user_id=user.id)
-        
-        # Update the existing customer's address
-        customer.address = full_address
-        customer.save()
-        address = customer.address
-        
-        
-
-    return render(request,'address_page.html',{'address': address})
-
-
-
 # order status
-
 @login_required
 def order_status(request):
     if request.POST:

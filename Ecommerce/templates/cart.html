@@ -63,12 +63,7 @@
                 <td>Total</td>
                 <td class="total-price">₹{% total_price cart %}</td>
             </tr>
-            <tr>
-                
-               
-                <!--razorpay-->
-                
-                
+            <tr> 
                 <td>
                     <form action="{% url 'place_order' %}" method="POST">
                         {% csrf_token %}
