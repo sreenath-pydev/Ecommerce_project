@@ -3,8 +3,8 @@ from django import template
 register = template.Library()
 
 
-@register.simple_tag(name='multiply')
-def multiply(a, b):
+@register.simple_tag(name='multiplication')
+def multiplication(a, b):
     try:
         # Convert inputs to float and perform multiplication
         result = float(a) * float(b)

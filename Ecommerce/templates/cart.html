@@ -5,9 +5,11 @@
 {% load subtotal %}
 {% load tax %}
 {% load total_price %}
+{% load multi %}
 
 <!-- Cart items details -->
 {% if cart and cart.added_items.all %}
+
 <div class="small-container cart-page">
     <table>
         <tr>
@@ -36,13 +38,13 @@
                     <div class="quantity-control">
                         <button class="decrement-btn" data-item-id="{{ cart_item.id }}">–</button>
                         <input type="text" class="quantity-input" name="quantity" value="{{ cart_item.quantity }}" data-item-id="{{ cart_item.id }}" data-item-price="{{ cart_item.product.price }}">
-                        <input id="count-bar"type="hidden" name="product_id" value="{{ cart_item.product.id }}">
+                        <input id="count-bar"type="hidden" name="product-id" value="{{ cart_item.product.id }}">
                         <button class="increment-btn" data-item-id="{{ cart_item.id }}">+</button>
                     </div>
                 </form>
             </td>
             
-            <td>₹{% multiply cart_item.product.price cart_item.quantity %}</td>
+            <td>₹{% multiplication cart_item.product.price cart_item.quantity %}</td>
         </tr>
         {% endfor %}
     </table> 
@@ -62,13 +64,58 @@
                 <td class="total-price">₹{% total_price cart %}</td>
             </tr>
             <tr>
-                <td></td>
+                
+               
+                <!--razorpay-->
+                
+                
                 <td>
-                    <form method="post" action="{% url 'order_status' %}" enctype="multipart/form-data">
+                    <form action="{% url 'place_order' %}" method="POST">
                         {% csrf_token %}
-                        <input type="hidden" name="total" value="{% total_price cart %}">
+                        <!-- Include the Razorpay key as a data attribute -->
+                        <input type="hidden" name="total" value="{{ total_price }}">
                         <button type="submit" class="btn">PLACE ORDER</button>
                     </form>
+                    
+                    <!-- Add a script tag to include the Razorpay SDK -->
+                    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                    
+                    <script>
+                        // Initialize Razorpay with your key
+                        var razorpayKey = 'rzp_test_M9hNrgZTAp4j71';
+                        var razorpayOptions = {
+                            key: razorpayKey,
+                            amount: {{ total_price }} * 100, // Convert total price to paise
+                            currency: 'INR',
+                            name: 'Your Company Name',
+                            description: 'Payment for Order',
+                            image: 'https://your-company-logo.png',
+                            handler: function(response) {
+                                // Handle payment success
+                                console.log(response);
+                            },
+                            prefill: {
+                                name: 'Customer Name',
+                                email: 'customer@example.com',
+                                contact: 'Customer Contact Number'
+                            },
+                            notes: {
+                                // Add any additional notes or metadata here
+                            },
+                            theme: {
+                                color: '#F37254' // Customize theme color if needed
+                            }
+                        };
+                    
+                        // Open Razorpay checkout on button click
+                        document.querySelector('.btn').onclick = function(e) {
+                            e.preventDefault();
+                            var rzp = new Razorpay(razorpayOptions);
+                            rzp.open();
+                        };
+                    </script>
+                    
+                    
                 </td>
             </tr>
         </table>
@@ -101,6 +148,7 @@
 {% endblock footer %}
 
 <!-- JavaScript for quantity control -->
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const decrementButtons = document.querySelectorAll(".decrement-btn");
@@ -109,10 +157,10 @@
 
         function updateSubtotal(itemId, quantity) {
             const itemPrice = parseFloat(document.querySelector(`.quantity-input[data-item-id="${itemId}"]`).getAttribute("data-item-price"));
-            const subtotalElement = document.querySelector(`.subtotal[data-item-id="${itemId}"]`);
-            subtotalElement.textContent = `₹${itemPrice * quantity}`;
+            const subtotalElement = document.querySelector(`.subtotal-price[data-item-id="${itemId}"]`);
+            subtotalElement.textContent = `₹${(itemPrice * quantity).toFixed(2)}`;
         }
-
+        
         function updatePrices() {
             let subtotal = 0;
             quantityInputs.forEach(input => {
@@ -128,7 +176,7 @@
             const total = subtotal + tax;
             document.querySelector(".total-price").textContent = `₹${total.toFixed(2)}`;
         }
-
+        
         decrementButtons.forEach(button => {
             button.addEventListener("click", function() {
                 const itemId = this.getAttribute("data-item-id");
@@ -142,7 +190,7 @@
                 }
             });
         });
-
+        
         incrementButtons.forEach(button => {
             button.addEventListener("click", function() {
                 const itemId = this.getAttribute("data-item-id");
@@ -154,7 +202,7 @@
                 updatePrices();
             });
         });
-
+        
         quantityInputs.forEach(input => {
             input.addEventListener("change", function() {
                 const itemId = this.getAttribute("data-item-id");
@@ -163,7 +211,7 @@
                 updatePrices();
             });
         });
-
+        
         updatePrices();
     });
 </script>
