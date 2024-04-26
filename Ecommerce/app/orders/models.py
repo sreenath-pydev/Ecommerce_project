@@ -21,14 +21,14 @@ class order(models.Model):
     deleted_status = models.IntegerField(choices=DELETE_CHOICE,default=DELETE)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    def __str__(self):
-        return f"Customer: {self.owner.name}"
+    """def __str__(self):
+        return  {self.owner.name}"""
 
 class order_items(models.Model):
     product = models.ForeignKey(products_table,related_name='added_cart',on_delete=models.SET_NULL,null=True)
     quantity = models.IntegerField(default=1)
     owner = models.ForeignKey(order,on_delete=models.CASCADE,null=True,related_name='added_items')
 
-    def __str__(self) -> str:
+    """def __str__(self) -> str:
          
-         return f" ID: {self.owner.id} - Customer: {self.owner.owner.name}"
+         return f" ID: {self.owner.id} - Customer: {self.owner.owner.name}"""

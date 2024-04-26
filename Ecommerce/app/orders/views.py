@@ -7,7 +7,7 @@ import re
 import razorpay
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseNotAllowed
+from django.http import HttpResponseNotAllowed,JsonResponse
 from app.customer.form import AddressForm
 
 
@@ -122,7 +122,6 @@ def add_address(request):
 @login_required
 def update_address_form(request):
     customer = get_object_or_404(customers, user=request.user)
-
     if request.method == 'POST':
         address_form = AddressForm(request.POST, instance=customer)
         if address_form.is_valid():
@@ -132,22 +131,28 @@ def update_address_form(request):
         address_form = AddressForm(instance=customer)
     
     return render(request, 'address_page.html', {'address_form': address_form})
-
+#place order
 def place_order(request):
-    user = request.user
-    customer = user.customer_detail
-    context = {
-        'name': user.username,
-        'address': customer.address,
-        'phone': customer.phone,
-        'email': user.email,
-        'city': customer.city,
-        'locality': customer.locality,
-        'pincode':customer.pincode,
-    }
+    if request.method=="POST":
+        user = request.user
+        total = request.POST.get('total')
+        customer = user.customer_detail
+        context = {
+            'name': user.username,
+            'address': customer.address,
+            'phone': customer.phone,
+            'email': user.email,
+            'city': customer.city,
+            'locality': customer.locality,
+            'pincode':customer.pincode,  
+            'total':total,
+        }
+        
+        return render(request, 'address_page.html', context)
+    return render(request, 'address_page.html')
 
-    return render(request, 'address_page.html', context)
 
+    
 # order status
 @login_required
 def order_status(request):
@@ -181,7 +186,8 @@ def payment(request):
         try:
             user = request.user
             customer = user.customer_detail
-            total_price = int(request.POST.get('total'))
+            total_price = int(request.POST.get('total'))*100
+            print(total_price)
 
             # Ensure that the total_price is at least ₹1 (100 paise)
             if total_price < 1:
@@ -193,7 +199,7 @@ def payment(request):
             )
             if order_obj:
                 # Initialize Razorpay client
-                client = razorpay.Client(auth=('rzp_test_M9hNrgZTAp4j71', 'eHowzqQQg9PcFAPuArTYeOth'))
+                client = razorpay.Client(auth=('rzp_test_QmPhbR0YVT5egw', 'T0hKmZXirqhcRFuGOgomT1Ez'))
 
                 # Create a Razorpay order
                 razorpay_order = client.order.create({
@@ -223,3 +229,29 @@ def payment(request):
     else:
         # Handle GET request if needed
         return HttpResponseNotAllowed(['POST'])
+
+# payment razorpay
+def payments(request):
+    if request.method == 'POST':
+        total_amount = request.POST.get('total_amount')
+
+        # Perform the multiplication operation here
+        total_amount_paise = int(float(total_amount) * 100)
+
+        # Initialize Razorpay client with your API key and secret
+        client = razorpay.Client(auth=('rzp_test_QmPhbR0YVT5egw', 'T0hKmZXirqhcRFuGOgomT1Ez'))
+
+        # Create a Razorpay order
+        order_params = {
+            'amount': total_amount*100 ,  # Amount in paise
+            'currency': 'INR',
+            'receipt': 'order_receipt',
+            # Add any other required parameters
+        }
+        print(total_amount_paise)
+        razorpay_order = client.order.create(order_params)
+
+        # Return the Razorpay order ID and total_amount_paise to the client-side JavaScript
+        return JsonResponse({'razorpay_order_id': razorpay_order['id'], 'total_amount_paise': total_amount_paise})
+
+    return render(request, 'razorpay_payment.html', )

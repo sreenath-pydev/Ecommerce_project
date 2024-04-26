@@ -68,47 +68,12 @@
                     <form action="{% url 'place_order' %}" method="POST">
                         {% csrf_token %}
                         <!-- Include the Razorpay key as a data attribute -->
-                        <input type="hidden" name="total" value="{{ total_price }}">
+                        <input type="hidden" name="total" value="{% total_price cart %}">
                         <button type="submit" class="btn">PLACE ORDER</button>
                     </form>
                     
                     <!-- Add a script tag to include the Razorpay SDK -->
-                    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
                     
-                    <script>
-                        // Initialize Razorpay with your key
-                        var razorpayKey = 'rzp_test_M9hNrgZTAp4j71';
-                        var razorpayOptions = {
-                            key: razorpayKey,
-                            amount: {{ total_price }} * 100, // Convert total price to paise
-                            currency: 'INR',
-                            name: 'Your Company Name',
-                            description: 'Payment for Order',
-                            image: 'https://your-company-logo.png',
-                            handler: function(response) {
-                                // Handle payment success
-                                console.log(response);
-                            },
-                            prefill: {
-                                name: 'Customer Name',
-                                email: 'customer@example.com',
-                                contact: 'Customer Contact Number'
-                            },
-                            notes: {
-                                // Add any additional notes or metadata here
-                            },
-                            theme: {
-                                color: '#F37254' // Customize theme color if needed
-                            }
-                        };
-                    
-                        // Open Razorpay checkout on button click
-                        document.querySelector('.btn').onclick = function(e) {
-                            e.preventDefault();
-                            var rzp = new Razorpay(razorpayOptions);
-                            rzp.open();
-                        };
-                    </script>
                     
                     
                 </td>

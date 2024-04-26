@@ -25,7 +25,7 @@ urlpatterns = [
     path('place_order/',views.place_order,name='place_order'),
     path('order_status/',views.order_status,name='order_status'),
     path('update_product_quantity_in_cart/',views.update_product_quantity_in_cart,name='update_product_quantity_in_cart'),
-    #path('payment/',views.payment,name='payment'),
+    path('payments/',views.payments,name='payments'),
     path('add_address/',views.add_address,name='add_address'),
     path('update_address_form/',views.update_address_form,name='update_address_form'),
     
