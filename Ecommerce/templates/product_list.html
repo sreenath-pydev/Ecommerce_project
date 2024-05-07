@@ -1,3 +1,4 @@
+
 {% load static %}
 {% load row_split %}
 
@@ -9,7 +10,7 @@
        {% for row_products in list_products|row_split:4 %}
     <div class="row">
         {% for product in row_products %}
-        <div class="col-4">
+        <div class="col-3">
            
            <a href="{% url 'product_details' product.id %}"><img src="{{product.image.url}}"></a>
             <h4>{{product.title}} </h4>
