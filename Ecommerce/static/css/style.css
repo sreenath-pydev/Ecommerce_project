@@ -144,6 +144,17 @@ h4{
 .col-4:hover{
     transform: translateY(-5px);
 }
+/* carousel */
+.carousel-inner img {
+    width: 100%;
+    height: 500px;
+    border-radius: 10px;
+    
+}
+.carousel{
+    margin : 10px;
+    
+}
 /* Offer */
 .offer{
     background: radial-gradient(#fff, rgb(167, 225, 167));
