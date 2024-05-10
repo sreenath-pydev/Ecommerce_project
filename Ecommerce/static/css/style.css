@@ -66,8 +66,8 @@ p{
     line-height: 60px;
     margin: 25px 0;
 }
-.btn{
-    display: inline-block;
+.btn{  /* not connected */
+    
     background: rgb(167, 225, 167);
     color: white;
     padding: 8px 30px;
@@ -483,7 +483,7 @@ form .btn:focus{
 #RegForm{
     left: 0;
 }
-form a{
+#LoginForm a{
     font-size: 12px;
 }
 #Indicator{
