@@ -13,6 +13,9 @@ def index(request):
     }
     return render(request,'index.html',context)
 
+
+
+
 # product_list
 def product_list(request):
     page=1
@@ -26,5 +29,6 @@ def product_list(request):
 # product_details
 def product_details(request,pk):
     product= products_table.objects.get(pk=pk)
-    context={'product':product}
+    related_products=products_table.objects.order_by('-id')[:4]
+    context={'product':product,"related_products": related_products}
     return render(request,'product_details.html',context)

@@ -54,12 +54,13 @@ p{
 }
 .col-2{
     flex-basis: 50%;
-    min-width: 300px;
+    min-width: 500px;
     
 }
 .col-2 img{
-    max-width: 100%;
+    max-width: 400px;
     padding: 10px 0;
+    margin-bottom: 10px;
 }
 .col-2 h1{
     font-size: 60px;
@@ -107,7 +108,19 @@ p{
     margin-bottom: 50px;
     transition: transform 0.5s;
 }
+.col-3{
+    flex-basis: 25%;
+    padding: 10px;
+    min-width: 200px;
+    margin-bottom: 50px;
+    transition: transform 0.5s;
+}
 .col-4 img{
+    width: 100%;
+    height: 300px;
+    
+}
+.col-3 img{
     width: 100%;
     height: 300px;
     
@@ -136,12 +149,18 @@ h4{
     font-weight: normal;
 }
 .col-4 p{
-    font-size: 14px;
+    font-size: 20px;
+    margin: 12px 0;
+    color: #555;
+    font-weight: 600;
 }
 .rating .fa{
     color: rgb(167, 225, 167);
 }
 .col-4:hover{
+    transform: translateY(-5px);
+}
+.col-3:hover{
     transform: translateY(-5px);
 }
 /* carousel */
@@ -192,9 +211,10 @@ small{
     color: rgb(167, 225, 167);
 }
 .col-3 p{
-    font-size: 12px;
+    font-size: 20px;
     margin: 12px 0;
-    color: #777;
+    color: #555;
+    font-weight: 600;
 }
 .testimonial .col-3 h3{
     font-weight: 600;
@@ -305,14 +325,18 @@ select:focus{
 
 /* Single Product */
 .single-product{
-    margin-top: 80px;
+    margin-top: 20px;
+    
 }
 .single-product .col-2 img{
     padding: 0;
+    height: 100px;
     
 }
 .single-product .col-2{
-    padding: 20px;
+    padding: 10px;
+    
+    
 }
 .single-product h4{
     margin: 20px 0;
@@ -358,9 +382,14 @@ input:focus{
 }
 #ProductImg{
     
-    height: 475px;
+    height: 400px;
 }
-
+#view_more{
+    color: #555;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
 
 
 /* Cart Items */

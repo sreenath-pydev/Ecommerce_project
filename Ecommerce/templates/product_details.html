@@ -1,37 +1,97 @@
 {% include "base_layout.html" %}
 {% load static %}
 
-
-   <!-- Single Products -->
+<!-- Single Product -->
 <div class="small-container single-product">
     <div class="row">
         <div class="col-2">
             <img src="{{ product.image.url }}" width="100%" id="ProductImg">
+            <!-- Small images -->
+            <div class="small-img-row">
+                <div class="small-img-col">
+                    <img src="{{ product.image.url }}" width="100%" class="small-img">
+                </div>
+                <div class="small-img-col">
+                    <img src="{{ product.image.url }}" width="100%" class="small-img">
+                </div>
+                <div class="small-img-col">
+                    <img src="{{ product.image.url }}" width="100%" class="small-img">
+                </div>
+                <div class="small-img-col">
+                    <img src="{{ product.image.url }}" width="100%" class="small-img">
+                </div>
+            </div>
+            <!-- Small images end -->
         </div>
         <div class="col-2">
             <p>Home / {{ product.title }}</p>
             <h1>{{ product.title }}</h1>
             <h4>₹{{ product.price }}</h4>
 
-            <form id="addToCartForm" method="post" enctype="multipart/form-data" {% if user.is_authenticated %} action="{% url 'add_to_cart' product.id %}" {% else %} action="{% url 'account' %}?login=true" {% endif %} >
+            <form id="addToCartForm" method="post" enctype="multipart/form-data" {% if user.is_authenticated %} action="{% url 'add_to_cart' product.id %}" {% else %} action="{% url 'account' %}?login=true" {% endif %}>
                 {% csrf_token %}
                 <input type="hidden" name="product_id" value="{{ product.id }}">
-                
                 <button type="submit" class="btn btn-success">Add To Cart</button>
             </form>
-            
+
             <h3>Product Details <i class="fa fa-indent"></i></h3>
             <br>
             <p>{{ product.descriptions }}</p>
         </div>
     </div>
 </div>
-<!-- title -->
+<!-- Title -->
 
-<!-- footer -->
+<!-- Related Products -->
+<h2 class="title">Related Products</h2>
+<div class="small-container">
+    <div class="row">
+        {% for product in related_products %}
+        <div class="col-3">
+            <a href="{% url 'product_details' product.id %}"><img src="{{ product.image.url }}"></a>
+            <h4>{{ product.title }}</h4>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+            <p>₹{{ product.price }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Title -->
+<div class="small-container">
+    <div class="row row-2 justify-content-end">
+        
+        <div class="col-auto">
+            <a href="{% url 'product_list'  %}"  id="view_more" ><p >View More</p></a>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
 {% block footer %}
 {% include "footer_layout.html" %}
 {% endblock footer %}
 
-<!-- JavaScript to handle quantity -->
+<script>
+    var ProductImg = document.getElementById("ProductImg");
+    var SmallImg = document.getElementsByClassName("small-img");
 
+    SmallImg[0].onclick = function () {
+        ProductImg.src = SmallImg[0].src;
+    }
+    SmallImg[1].onclick = function () {
+        ProductImg.src = SmallImg[1].src;
+    }
+    SmallImg[2].onclick = function () {
+        ProductImg.src = SmallImg[2].src;
+    }
+    SmallImg[3].onclick = function () {
+        ProductImg.src = SmallImg[3].src;
+    }
+
+</script>
