@@ -67,23 +67,12 @@ p{
     line-height: 60px;
     margin: 25px 0;
 }
-.btn{  /* not connected */
-    
-    background: rgb(167, 225, 167);
-    color: white;
-    padding: 8px 30px;
-    margin: 30px 0;
-    border-radius: 30px;
-    transition: background 0.5s;
-}
 .btn:hover{
     background: #16d10c;
 }
 .header{
     background: radial-gradient(#fff,rgb(167, 225, 167));
 }
-
-
 .categories{
     margin: 70px 0;
 }
@@ -105,6 +94,7 @@ p{
     flex-basis: 25%;
     padding: 10px;
     min-width: 200px;
+    height: 600px;
     margin-bottom: 50px;
     transition: transform 0.5s;
 }
@@ -112,6 +102,7 @@ p{
     flex-basis: 25%;
     padding: 10px;
     min-width: 200px;
+    height: 400px;
     margin-bottom: 50px;
     transition: transform 0.5s;
 }
@@ -163,79 +154,17 @@ h4{
 .col-3:hover{
     transform: translateY(-5px);
 }
+
 /* carousel */
 .carousel-inner img {
     width: 100%;
     height: 500px;
     border-radius: 10px;
-    
 }
 .carousel{
     margin : 10px;
-    
-}
-/* Offer */
-.offer{
-    background: radial-gradient(#fff, rgb(167, 225, 167));
-    margin-top: 80px;
-    padding: 30px 0;
-}
-.col-2 .offer-img{
-    padding: 50px;
-}
-small{
-    color: #555;
 }
 
-/* Testimonial */
-.testimonial{
-    margin-top: 100px;
-}
-.testimonial .col-3{
-    text-align: center;
-    padding: 40px 20px;
-    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.5s;
-}
-.testimonial .col-3 img{
-    width: 50px;
-    margin-top: 20px;
-    border-radius: 50%;
-}
-.testimonial .col-3:hover{
-    transform: translateY(-10px);
-}
-.fa.fa-quote-left{
-    font-size: 34px;
-    color: rgb(167, 225, 167);
-}
-.col-3 p{
-    font-size: 20px;
-    margin: 12px 0;
-    color: #555;
-    font-weight: 600;
-}
-.testimonial .col-3 h3{
-    font-weight: 600;
-    color: #555;
-    font-size: 16px;
-}
-/* Brands */
-.brands{
-    margin: 100px auto;
-}
-.col-5{
-    width: 160px;
-}
-.col-5 img{
-    width: 100%;
-    cursor: pointer;
-    filter: grayscale(100%);
-}
-.col-5 img:hover{
-    filter: grayscale(0);
-}
 /* Footer */
 .footer{
     background: black;
@@ -293,37 +222,7 @@ ul{
     display: none;
 }
 
-/* All Products */
-.row-2{
-    justify-content: space-between;
-    margin: 100px auto 50px;
-}
-select{
-    border: 1px solid rgb(167, 225, 167);
-    padding: 5px;
-}
-select:focus{
-    outline: none;
-}
-.page-btn{
-    margin: 0 auto 80px;
-}
-.page-btn span{
-    display: inline-block;
-    border: 1px solid rgb(167, 225, 167);
-    margin-left: 10px;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    cursor: pointer;
-}
-.page-btn span:hover{
-    background: rgb(167, 225, 167);
-    color: white;
-}
-
-/* Single Product */
+/* Single Product details */
 .single-product{
     margin-top: 20px;
     
@@ -391,75 +290,15 @@ input:focus{
     text-decoration: none;
 }
 
-
-/* Cart Items */
-.cart-page{
-    margin: 30px auto;
-}
-table{
-    width: 100%;
-    border-collapse: collapse;
-}
-.cart-info{
-    display: flex;
-    flex-wrap: wrap;
-}
-th{
-    text-align: left;
-    padding: 5px;
-    color: #fff;
-    background: rgb(167, 225, 167);
-    font-weight: normal;
-}
-td{
-    padding: 10px 5px;
-}
-td input{
-    width: 40px;
-    height: 30px;
-    padding: 5px;
-}
-td a{
-    color: rgb(224, 92, 21);
-    font-size: 12px;
-}
-td img{
-    width: 80px;
-    height: 80px;
-    margin-right: 10px;
-}
-.total-price{
-    display: flex;
-    justify-content: flex-end;
-}
-.total-price table{
-    border-top: 3px solid rgb(167, 225, 167);
-    width: 100%;
-    max-width: 400px;
-}
-td:last-child{
-    text-align: right;
-}
-th:last-child{
-    text-align: right;
-}
-
-/* Account page */
+/* Login and Register page */
 .account-page{
-    
     background: radial-gradient(#fff,rgb(167, 225, 167));
-
-    
 }
 .row-with-background{
     background-image: url("../images/accountbanner.png");
     background-size: cover;
     background-position: center; 
-    background-repeat: no-repeat; 
-   
-    
-    
-    
+    background-repeat: no-repeat;  
 }
 .form-container{
     background: #fff;
@@ -525,19 +364,7 @@ form .btn:focus{
     transition: transform 1s;
 }
 
-/*address page*/
-
-#strong{
-    color: rgb(23, 219, 98);
-}
-
-#update-button{
-    background-color: rgb(13, 175, 245);
-}
-
 /* nav drop dwon*/
-
-/* Style the dropdown container */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -580,41 +407,8 @@ form .btn:focus{
 .dropdown:hover .dropdown-content {
     display: block;
 }
-.empty_cart{
-    width: auto;
-    
-    background: radial-gradient(#fff,rgb(167, 225, 167));
-    
-}
-.empty_cart .col-4{
-    text-align: center;
-    width: 300px;
-    height: 400px;
-    
-    border-radius: 10px 10px 0px 0px;
-    
-}
-/* quantity control */
-.quantity-control {
-    display: flex;
-    align-items: center;
-    width: 120px;
-}
 
-.quantity-control .decrement-btn,
-.quantity-control .increment-btn {
-    padding: 5px 10px;
-    border: none;
-    background-color: #ccc;
-    cursor: pointer;
-}
 
-.quantity-control .quantity-input {
-    flex: 1;
-    padding: 5px;
-    margin: 0 10px;
-    text-align: center;
-}
 
 /* Media query for menu */
 @media only screen and (max-width: 800px){
@@ -662,9 +456,6 @@ form .btn:focus{
         font-size: 26px;
         line-height: 32px;
     }
-    .cart-info p{
-        display: none;
-    }
 }
-/* flip */
+
 

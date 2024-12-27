@@ -28,7 +28,7 @@
             <h1>{{ product.title }}</h1>
             <h4>₹{{ product.price }}</h4>
 
-            <form id="addToCartForm" method="post" enctype="multipart/form-data" {% if user.is_authenticated %} action="{% url 'add_to_cart' product.id %}" {% else %} action="{% url 'account' %}?login=true" {% endif %}>
+            <form id="addToCartForm" method="post" enctype="multipart/form-data" {% if user.is_authenticated %} action="#" {% else %} action="{% url 'account' %}?login=true" {% endif %}>
                 {% csrf_token %}
                 <input type="hidden" name="product_id" value="{{ product.id }}">
                 <button type="submit" class="btn btn-success">Add To Cart</button>
@@ -67,7 +67,7 @@
     <div class="row row-2 justify-content-end">
         
         <div class="col-auto">
-            <a href="{% url 'product_list'  %}"  id="view_more" ><p >View More</p></a>
+            <a href="#"  id="view_more" ><p >View More</p></a>
         </div>
     </div>
 </div>
