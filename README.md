@@ -39,7 +39,7 @@
    pip install -r requirements.txt
 4. **Apply migrations**
    ```bash
-   python manage.py makemigrations
+   python manage.py makemigrations ec_app
    python manage.py migrate
 5. **Create a superuser for the admin panel**
    ```bash
@@ -50,6 +50,16 @@
 7. **Access the appilcation**
    - Open your browser and go to http://127.0.0.1:8000/ to view the frontend.
    - Go to http://127.0.0.1:8000/admin/ to access the admin panel.
+
+### Adding Products to the Database
+To view the full products and the product details pages with full functionality, follow these steps:
+
+1. Log in to the Admin Panel: Use the superuser credentials created earlier to log in to the admin panel.
+2. Add Products:
+3. Navigate to the Products section in the admin panel.
+4. Add new product entries by providing details such as name, description, price, and image.
+5. Save the changes, and the products will be visible on the index page and product details page.
+
 ## Usage
 
 ### Frontend
