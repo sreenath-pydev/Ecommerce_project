@@ -5,10 +5,10 @@
 <div class="account-page">
     <div class="container">
         <div class="row row-with-background">
-            <div class="col-2">
+            <div class="col-lg-6">
                 <img src="" width="100%">
             </div>
-            <div class="col-2">
+            <div class="col-lg-6 col-md-12 col-sm-12">
                 <div class="form-container">
                     <div class="form-btn">
                         <span onclick="login()">Login</span>
@@ -17,16 +17,16 @@
                     </div>
                     <!-- Error messages -->
                     {% if messages %}
-                    {% for message in messages %}
-                    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="color: red;">
-                        <div class="toast-header">
-                            <strong class="me-auto">Alert!</strong>
-                        </div>
-                        <div class="toast-body">
-                            {{ message }}
-                        </div>
-                    </div>
-                    {% endfor %}
+                        {% for message in messages %}
+                            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="color: red;">
+                                <div class="toast-header">
+                                    <strong class="me-auto">Alert!</strong>
+                                </div>
+                                <div class="toast-body">
+                                    {{ message }}
+                                </div>
+                            </div>
+                        {% endfor %}
                     {% endif %}
                     <!-- Login form -->
                     <form id="LoginForm" method="post" enctype="multipart/form-data">
@@ -43,7 +43,7 @@
                         <input type="email" name="email" required placeholder="Email">
                         <input type="text" name="phone" required placeholder="Phone">
                         <input type="password" name="password" required placeholder="Password">
-                        <input type="password" name="repeat_password" required placeholder="repeat_Password">
+                        <input type="password" name="repeat_password" required placeholder="Repeat Password">
                         <button type="submit" name="register" class="btn btn-success">Register</button>
                     </form>
                 </div>
@@ -54,7 +54,7 @@
 
 <!-- Footer layout -->
 {% block footer %}
-{% include "footer_layout.html" %}
+    {% include "footer_layout.html" %}
 {% endblock footer %}
 
 <!-- Toggle Form -->
@@ -78,7 +78,7 @@
 
 <!-- Call register() or login() based on query parameters -->
 {% if request.GET.register %}
-<script>register()</script>
+    <script>register()</script>
 {% elif request.GET.login %}
-<script>login()</script>
+    <script>login()</script>
 {% endif %}
